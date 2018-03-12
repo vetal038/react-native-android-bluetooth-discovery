@@ -1,0 +1,22 @@
+.idea
+android/local.properties
+gen/
+
+.gradle
+gradle
+gradlew
+gradlew.bat
+
+node_modules
+
+## Build generated
+build/
+DerivedData
+
+*.tgz
+
+*.xcuserstate
+
+xcuserdata
+
+*.iml
