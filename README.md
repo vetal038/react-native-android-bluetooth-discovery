@@ -2,7 +2,7 @@
 Package for searching unpaired devices on android platform
 
 ## Android Installation
-1. npm i --save git://github.com/vetal038/react-native-android-bluetooth-discovery.git
+1. ```npm i --save git://github.com/vetal038/react-native-android-bluetooth-discovery.git```
 2. For android you need to put following code to `AndroidManifest.xml`
 ```
 <uses-permission android:name="android.permission.BLUETOOTH"/>
