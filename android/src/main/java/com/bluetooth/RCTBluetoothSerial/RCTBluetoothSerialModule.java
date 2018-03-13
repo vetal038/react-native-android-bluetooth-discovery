@@ -255,6 +255,34 @@ public class RCTBluetoothSerialModule extends ReactContextBaseJavaModule impleme
 
     @ReactMethod
     /**
+     * Makes this device discoverable for 60 seconds (1 minute).
+     */
+    private void enableDiscoverable() {
+        if (mBtAdapter.getScanMode() !=
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Activity activity = getCurrentActivity();
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 60);
+            activity.startActivity(discoverableIntent);
+        }
+    }
+
+    @ReactMethod
+    /**
+     * Makes this device discoverable disabled.
+     */
+    private void disableDiscoverable() {
+        if (mBtAdapter.getScanMode() ==
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Activity activity = getCurrentActivity();
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1);
+            activity.startActivity(discoverableIntent);
+        }
+    }
+
+    @ReactMethod
+    /**
      * Cancel discovery
      */
     public void cancelDiscovery() {
