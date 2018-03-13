@@ -271,13 +271,30 @@ public class RCTBluetoothSerialModule extends ReactContextBaseJavaModule impleme
     /**
      * Makes this device discoverable disabled.
      */
-    private void disableDiscoverable() {
+    private void cancelDiscoverable() {
         if (mBtAdapter.getScanMode() ==
                 BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
             Activity activity = getCurrentActivity();
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1);
             activity.startActivity(discoverableIntent);
+        }
+    }
+
+
+    @ReactMethod
+    /**
+     * Makes this device discoverable disabled with hook.
+     */
+    private void disableDiscoverable() {
+        if (mBtAdapter != null && mBtAdapter.getScanMode() ==
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            try {
+                Method method = BluetoothAdapter.class.getMethod("setScanMode", int.class);
+                method.invoke(mBtAdapter, BluetoothAdapter.SCAN_MODE_CONNECTABLE);
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to turn off bluetooth device discoverability.", e);
+            }
         }
     }
 
